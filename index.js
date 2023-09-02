@@ -1,3 +1,4 @@
+let currentCategory;
 const loadCategories = async () => {
   try {
     const res = await fetch(
@@ -9,7 +10,7 @@ const loadCategories = async () => {
     categoriesData.forEach((category) => {
       const categoryDiv = document.createElement("div");
       categoryDiv.innerHTML = `
-            <button onclick="singleCategoryData( '${category.category_id}'); sortCard('${category.category_id}')" class="px-4 py-2 rounded-lg bg-gray-400 text-white">${category.category}</button>
+            <button onclick="singleCategoryData( '${category.category_id}')" class="px-4 py-2 rounded-lg bg-gray-400 text-white">${category.category}</button>
             `;
       categoryContainer.appendChild(categoryDiv);
     });
@@ -20,22 +21,21 @@ const loadCategories = async () => {
 
 // individual category data load
 const singleCategoryData = async (categoryId) => {
-  
+  currentCategory = categoryId;
   try {
-    
     const res = await fetch(
       `https://openapi.programming-hero.com/api/videos/category/${categoryId}`
     );
     const data = await res.json();
     const singleCategoryData = data.data;
-    if(singleCategoryData.length === 0){
+    if (singleCategoryData.length === 0) {
       const noData = document.getElementById("no-data");
       noData.classList.remove("hidden");
     } else {
       const noData = document.getElementById("no-data");
       noData.classList.add("hidden");
     }
-    showSingleCard(singleCategoryData)
+    showSingleCard(singleCategoryData);
   } catch (error) {
     console.log(error);
   }
@@ -44,23 +44,23 @@ const singleCategoryData = async (categoryId) => {
 // show single card
 const showSingleCard = (singleCategoryData) => {
   const cardContainer = document.getElementById("card-container");
-    cardContainer.innerHTML = "";
-    const imageElement = document.createElement("img");
-    imageElement.className = "h-7 w-7";
-    imageElement.src = "./images/badge-check.png";
-    singleCategoryData.forEach((category) => {
-      let veriFiedImage =
-        '<img class="h-7 w-7" src="./images/badge-check.png" alt="">';
-      // time format
-      const dateInSeconds = category.others.posted_date;
-      const seconds = parseInt(dateInSeconds, 10);
-      const hours = Math.floor(seconds / 3600);
-      const minutes = Math.floor((seconds % 3600) / 60);
-      // Format the result as "Xhrs Ymin"
-      const formattedTime = `${hours}hrs ${minutes}min ago`;
+  cardContainer.innerHTML = "";
+  const imageElement = document.createElement("img");
+  imageElement.className = "h-7 w-7";
+  imageElement.src = "./images/badge-check.png";
+  singleCategoryData.forEach((category) => {
+    let veriFiedImage =
+      '<img class="h-7 w-7" src="./images/badge-check.png" alt="">';
+    // time format
+    const dateInSeconds = category.others.posted_date;
+    const seconds = parseInt(dateInSeconds, 10);
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    // Format the result as "Xhrs Ymin"
+    const formattedTime = `${hours}hrs ${minutes}min ago`;
 
-      const cardDiv = document.createElement("div");
-      cardDiv.innerHTML = `
+    const cardDiv = document.createElement("div");
+    cardDiv.innerHTML = `
       <div class="card  bg-base-100 shadow-xl">
         <figure>
           <img
@@ -92,23 +92,41 @@ const showSingleCard = (singleCategoryData) => {
       </div>
    
       `;
-      cardContainer.appendChild(cardDiv);
-    });
-}
+    cardContainer.appendChild(cardDiv);
+  });
+};
 
 // sort card decending order
-const sortCard = (categoryId) => {
+const sortCard = async () => {
+    
   try {
     
+    const res = await fetch(
+      `https://openapi.programming-hero.com/api/videos/category/${currentCategory}`
+    );
+    const data = await res.json();
+    const singleCategoryData = data.data;
+    const viewsData = [];
+    singleCategoryData.forEach( (item) => {
+      const value = item.others.views.replace("k", "");
+      item.others.views = parseInt(value) * 1000;
+      viewsData.push(item)
+    })
+    const sortedList = viewsData.sort( (a,b) => b.others.views - a.others.views);
+    showSingleCard(sortedList);
+
   } catch (error) {
     console.log(error);
-    
   }
-}
+};
+
+const sortbyView = document.getElementById('sortByView');
+sortbyView.addEventListener('click', sortCard)
+
 // go to blog page
-const blogPage = document.getElementById('blog')
-blogPage.addEventListener('click', () => {
-  window.location.href= './blog.html';
-})
+const blogPage = document.getElementById("blog");
+blogPage.addEventListener("click", () => {
+  window.location.href = "./blog.html";
+});
 loadCategories();
 singleCategoryData("1000");

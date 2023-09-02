@@ -22,7 +22,7 @@
             <img src="./images/logo.png" alt="" />
           </div>
           <div class="navbar-center hidden md:flex">
-            <button class="btn btn-active btn-ghost">Sort by View</button>
+            <button id="sortByView" class="btn btn-active btn-ghost">Sort by View</button>
           </div>
           <div class="navbar-end">
             <button id="blog" class="btn btn-active btn-secondary">Blog</button>
@@ -33,17 +33,7 @@
     </header>
     <main>
 
-      <!-- error no data found -->
-      <section id="no-data" class="data-not-found hidden mb-5">
-        <div class="container mx-auto">
-          <div class="flex flex-col items-center">
-            <div>
-              <img src="./images/icon.png" alt="">
-            </div>
-            <h2 class="text-3xl font-bold mt-6">Oops!! Sorry, There is no content here</h2>
-          </div>
-        </div>
-      </section>
+      
       <!-- category section -->
       <section class="categories-section">
         <div class="container mx-auto">
@@ -57,34 +47,19 @@
         <div class="container mx-auto px-4 lg:px-0">
           <!-- card container -->
           <div id="card-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-8"></div>
-           <!-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-8">
-            <div class="card  bg-base-100 shadow-xl">
-              <figure>
-                <img
-                  class="h-52"
-                  src="https://i.ibb.co/NTncwqH/luahg-at-pain.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div class="absolute bottom-48 right-4">
-                <span class="bg-slate-950 text-white px-2 py-2 rounded-lg">3hrs 12 min ago</span>
-              </div>
-              <div class="card-body">
-               
-                <h2 class="card-title font-bold">
-                  Laugh at My Pain
-                </h2>
-                <div class="flex space-x-4 items-center">
-                  <p class="grow-0 ">Awlad Hossain</p>
-                  
-                  <div>
-                    <img class="h-7 w-7" src="./images/badge-check.png" alt="">
-                  </div>
-                </div>
-                <p>91k Views</p>
-              </div>
+           
+        </div>
+      </section>
+
+      <!-- error no data found -->
+      <section id="no-data" class="data-not-found hidden mb-5">
+        <div class="container mx-auto">
+          <div class="flex flex-col items-center">
+            <div>
+              <img src="./images/icon.png" alt="">
             </div>
-          </div>  -->
+            <h2 class="text-3xl font-bold mt-6">Oops!! Sorry, There is no content here</h2>
+          </div>
         </div>
       </section>
     </main>
