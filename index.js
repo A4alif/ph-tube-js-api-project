@@ -77,10 +77,13 @@ const showSingleCard = (singleCategoryData) => {
           }">${category.others.posted_date ? formattedTime : ""}</span>
         </div>
         <div class="card-body">
-         
-          <h2 class="card-title font-bold">
+         <div class = "flex space-x-4 ">
+         <img class="w-8 h-8 rounded-full" src="${category.authors[0].profile_picture}" alt="">
+         <h2 class="card-title font-bold">
             ${category.title}
           </h2>
+         </div>
+          
           <div class="flex space-x-4 items-center">
             <p class="grow-0 ">${category.authors[0].profile_name}</p>
             <div>
@@ -98,30 +101,29 @@ const showSingleCard = (singleCategoryData) => {
 
 // sort card decending order
 const sortCard = async () => {
-    
   try {
-    
     const res = await fetch(
       `https://openapi.programming-hero.com/api/videos/category/${currentCategory}`
     );
     const data = await res.json();
     const singleCategoryData = data.data;
     const viewsData = [];
-    singleCategoryData.forEach( (item) => {
+    singleCategoryData.forEach((item) => {
       const value = item.others.views.replace("k", "");
       item.others.views = parseInt(value) * 1000;
-      viewsData.push(item)
-    })
-    const sortedList = viewsData.sort( (a,b) => b.others.views - a.others.views);
+      viewsData.push(item);
+    });
+    const sortedList = viewsData.sort(
+      (a, b) => b.others.views - a.others.views
+    );
     showSingleCard(sortedList);
-
   } catch (error) {
     console.log(error);
   }
 };
 
-const sortbyView = document.getElementById('sortByView');
-sortbyView.addEventListener('click', sortCard)
+const sortbyView = document.getElementById("sortByView");
+sortbyView.addEventListener("click", sortCard);
 
 // go to blog page
 const blogPage = document.getElementById("blog");
