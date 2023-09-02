@@ -81,6 +81,10 @@ const singleCategoryData = async (categoryId) => {
     console.log(error);
   }
 };
-
+// go to blog page
+const blogPage = document.getElementById('blog')
+blogPage.addEventListener('click', () => {
+  window.location.href= './blog.html';
+})
 loadCategories();
 singleCategoryData("1000");
