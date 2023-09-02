@@ -9,7 +9,7 @@ const loadCategories = async () => {
     categoriesData.forEach((category) => {
       const categoryDiv = document.createElement("div");
       categoryDiv.innerHTML = `
-            <button onclick="singleCategoryData( '${category.category_id}')" class="px-4 py-2 rounded-lg bg-gray-400 text-white">${category.category}</button>
+            <button onclick="singleCategoryData( '${category.category_id}'); sortCard('${category.category_id}')" class="px-4 py-2 rounded-lg bg-gray-400 text-white">${category.category}</button>
             `;
       categoryContainer.appendChild(categoryDiv);
     });
@@ -20,13 +20,30 @@ const loadCategories = async () => {
 
 // individual category data load
 const singleCategoryData = async (categoryId) => {
+  
   try {
+    
     const res = await fetch(
       `https://openapi.programming-hero.com/api/videos/category/${categoryId}`
     );
     const data = await res.json();
     const singleCategoryData = data.data;
-    const cardContainer = document.getElementById("card-container");
+    if(singleCategoryData.length === 0){
+      const noData = document.getElementById("no-data");
+      noData.classList.remove("hidden");
+    } else {
+      const noData = document.getElementById("no-data");
+      noData.classList.add("hidden");
+    }
+    showSingleCard(singleCategoryData)
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// show single card
+const showSingleCard = (singleCategoryData) => {
+  const cardContainer = document.getElementById("card-container");
     cardContainer.innerHTML = "";
     const imageElement = document.createElement("img");
     imageElement.className = "h-7 w-7";
@@ -77,10 +94,17 @@ const singleCategoryData = async (categoryId) => {
       `;
       cardContainer.appendChild(cardDiv);
     });
+}
+
+// sort card decending order
+const sortCard = (categoryId) => {
+  try {
+    
   } catch (error) {
     console.log(error);
+    
   }
-};
+}
 // go to blog page
 const blogPage = document.getElementById('blog')
 blogPage.addEventListener('click', () => {
