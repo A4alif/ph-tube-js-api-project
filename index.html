@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PH Tube</title>
+
     <!-- tailwind and daity ui -->
     <link
       href="https://cdn.jsdelivr.net/npm/daisyui@3.6.4/dist/full.css"
@@ -20,25 +21,70 @@
           <div class="navbar-start">
             <img src="./images/logo.png" alt="" />
           </div>
-          <div class="navbar-center hidden lg:flex">
+          <div class="navbar-center hidden md:flex">
             <button class="btn btn-active btn-ghost">Sort by View</button>
           </div>
           <div class="navbar-end">
             <button class="btn btn-active btn-secondary">Blog</button>
           </div>
         </div>
-        <div class="divider"></div> 
-
+        <div class="divider"></div>
       </div>
     </header>
     <main>
 
+      <!-- error nothing data found -->
+      <section id="no-data" class="data-not-found hidden">
+        <div class="container mx-auto">
+          <div class="flex flex-col items-center">
+            <div>
+              <img src="./images/icon.png" alt="">
+            </div>
+            <h2 class="text-3xl font-bold mt-6">Oops!! Sorry, There is no content here</h2>
+          </div>
+        </div>
+      </section>
       <!-- category section -->
       <section class="categories-section">
         <div class="container mx-auto">
           <!-- category container -->
           <div id="categories" class="flex justify-center space-x-9"></div>
-          
+        </div>
+      </section>
+
+      <!-- card section -->
+      <section class="card-section my-9 py-9">
+        <div class="container mx-auto px-4 lg:px-0">
+          <!-- card container -->
+          <div id="card-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-8"></div>
+           <!-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-8">
+            <div class="card  bg-base-100 shadow-xl">
+              <figure>
+                <img
+                  class="h-52"
+                  src="https://i.ibb.co/NTncwqH/luahg-at-pain.jpg"
+                  alt="Shoes"
+                />
+              </figure>
+              <div class="absolute bottom-48 right-4">
+                <span class="bg-slate-950 text-white px-2 py-2 rounded-lg">3hrs 12 min ago</span>
+              </div>
+              <div class="card-body">
+               
+                <h2 class="card-title font-bold">
+                  Laugh at My Pain
+                </h2>
+                <div class="flex space-x-4 items-center">
+                  <p class="grow-0 ">Awlad Hossain</p>
+                  
+                  <div>
+                    <img class="h-7 w-7" src="./images/badge-check.png" alt="">
+                  </div>
+                </div>
+                <p>91k Views</p>
+              </div>
+            </div>
+          </div>  -->
         </div>
       </section>
     </main>
